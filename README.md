@@ -44,11 +44,17 @@ Documentação da primeira atividade de Linux - PB - Compass UOL
 ## Linux
 
 ### Acesso Inicial a instância por SSH
-- Com a Chave publica no WSL (Windows subsystem for linux)
-  - Mudar proprietário para utilizar a chave
+- Com a instância iniciada, com a chave privada em meu computador e usando o WSL (Windows subsystem for linux):
+  - Configurar permissões para o uso da chave 
 
 ```
-    sudo chown +
+    sudo chmod 400 /*/chaveprivada.pem
+```
+
+- Utilizar o seguinte comando para acessar a instância:
+
+```
+    ssh -i chaveprivada.pem ec2-user@34.236.193.66
 ```
 
 ### Configurando o NFS
