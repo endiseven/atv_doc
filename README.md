@@ -12,13 +12,13 @@ Documentação da primeira atividade de Linux - PB - Compass UOL
 ### Criar e Configurar Security group
 - Adicionar regras de entrada:
   - 22/TCP, 111/TCP e UDP, 2049/TCP/UDP, 80/TCP, 443/TCP
-  - Item:"Origem" deve estar "0.0.0.0/0" para acesso público. 
+  - Item:"Origem" deve estar ```0.0.0.0/0``` para acesso público. 
     
 ### Gerar Pares de Chaves para acesso por SSH
 - Em serviço EC2, na aba "Rede e segurança", acessar "Pares de chaves":
   - "Criar par de chaves" com as seguinte configuração para acesso por SSH:
     - Tipo de par de chaves: RSA
-    - Formato de arquivo de chave privada: .pem
+    - Formato de arquivo de chave privada: ```.pem```
   - Armazenar a chave privada gerada para acesso ao ambiente. 
 
 ### Instância EC2
@@ -119,11 +119,42 @@ sudo systemctl start httpd
 sudo systemctl enable httpd
 ```
 
-- Testar 
+- Acessar o IP público da instância para atestar o funcionamento do servidor: ```34.236.193.66```
 
 
 ### Script
 
+Processo de criação do script:
+
+- O script deve identificar a data e a hora, identificar se o serviço esta online ou offline e deve criar dois arquivos de logs separados para armazenar os dois tipos de informação.
+ 
+- Criar um Bash script:
+  - Criar um arquivo e nomea-lo com a extensão ```.sh```, abrir o arquivo com um editor de texto e escrever:
+
+```
+#!/bin/bash
+
+data=$(date)
+
+if systemctl is-active --quiet httpd
+then
+	status="ONLINE"
+echo "$data httpd Status $status" >> /media/nfs/endi/apache_online.log
+else
+	status="offline"
+echo "$data httpd Status $status" >> /media/nfs/endi/apache_offline.log
+
+fi
+
+```
+
+- Tornar o script executável com o comando:
+```
+sudo chmod +x /root/script.sh
+```
+
+
 ### Execução automática do script
 
-### Github
+- Para execução automática do script a cada 5 minutos utilizar o comando: ```sudo crontab -e``` e em seguida configurar o arquivo 
+aberto digitando ```*/5 * * * * /root/script.sh```, salvar e sair. 
