@@ -40,7 +40,6 @@ Documentação da primeira atividade de Linux - PB - Compass UOL
 - Alocar endereço IP elástico
   - Em "ações" escolher "associar ip elástico" e selecionar a instância desejada.
 
-
 ## Linux
 
 ### Acesso Inicial a instância por SSH
@@ -58,16 +57,73 @@ Documentação da primeira atividade de Linux - PB - Compass UOL
 ```
 
 ### Configurando o NFS
-
 #### Servidor
+- Intalar o NFS server package
+
+```
+sudo yum install-y nfs-utils
+```
+- Iniciar o serviço NFS e habilitar sua inicialização no boot do sistema.
+
+```
+sudo yum install-y nfs-utils
+sudo systemctl enable nfs-server
+```
+
+- Criar pasta para ser compartilhada e criar pasta com meu nome:
+
+```
+sudo mkdir /media/nfs
+sudo mkdir /media/nfs/endi
+```
+
+- Configurar as pastas compatilhadas editando o arquivo "/etc/exports"
+
+```
+sudo nano /etc/exports
+```
+
+  - Adicionar no arquivo a seguinte linha contendo o caminho da pasta, o alcançe do IP e as regras do compartilhamento.
+
+    ```/media/nfs 192.168.3.0/20(rw,sync,no_subree_check) ```
+
+- Exportar o compartilhamento para tornar a pasta disponivel na rede para montagem por outros computadores.
+```
+sudo exportfs -r
+```
 
 #### Cliente
 
+Inicializar uma outra instância EC2 para funcionar como cliente e testar o servidor NFS.
+Instância criada na mesma subnet do servidor, dentro do alcance de IP's estabelecido no "/etc/exports". 
+
+- Instalar o nfs-utils
+
+```
+sudo yum install-y nfs-utils
+```
+
+- Montar a pasta compartilhada pelo servidor no sistema:
+
+```
+sudo mount -t nfs4 192.168.3.176:/media/nfs /media/
+```
+
 ### Instalando e configurando o servidor Apache
+
+- Instalar, iniciar o Apache e habilitar sua inicializção com o boot do sistema.
+
+```
+sudo yum install httpd
+sudo systemctl start httpd
+sudo systemctl enable httpd
+```
+
+- Testar 
+
 
 ### Script
 
 ### Execução automática do script
 
 ### Github
-
