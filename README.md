@@ -19,7 +19,8 @@ Documentação da primeira atividade de Linux - PB - Compass UOL
   - "Criar par de chaves" com as seguinte configuração para acesso por SSH:
     - Tipo de par de chaves: RSA
     - Formato de arquivo de chave privada: ```.pem```
-  - Armazenar a chave privada gerada para acesso ao ambiente. 
+  - Armazenar a chave privada gerada para acesso ao ambiente.
+  - Nome da minha chave: ```par1.pem``` 
 
 ### Instância EC2
 - Criar Instância com as Tags necessárias para obter permissão. 
@@ -47,13 +48,13 @@ Documentação da primeira atividade de Linux - PB - Compass UOL
   - Configurar permissões para o uso da chave 
 
 ```
-    sudo chmod 400 /*/chaveprivada.pem
+    sudo chmod 400 /home/endi/par1.pem
 ```
 
 - Utilizar o seguinte comando para acessar a instância:
 
 ```
-    ssh -i chaveprivada.pem ec2-user@34.236.193.66
+    ssh -i /home/endi/par1.pem ec2-user@34.236.193.66
 ```
 
 ### Configurando o NFS
@@ -85,7 +86,7 @@ sudo nano /etc/exports
 
   - Adicionar no arquivo a seguinte linha contendo o caminho da pasta, o alcançe do IP e as regras do compartilhamento.
 
-    ```/media/nfs 192.168.3.0/20(rw,sync,no_subree_check) ```
+    ```/media/nfs 172.29.3.0/24(rw,sync,no_subtree_check) ```
 
 - Exportar o compartilhamento para tornar a pasta disponivel na rede para montagem por outros computadores.
 ```
@@ -106,7 +107,7 @@ sudo yum install-y nfs-utils
 - Montar a pasta compartilhada pelo servidor no sistema:
 
 ```
-sudo mount -t nfs4 192.168.3.176:/media/nfs /media/
+sudo mount -t nfs4 172.29.3.176:/media/nfs /media/
 ```
 
 ### Instalando e configurando o servidor Apache
@@ -150,11 +151,11 @@ fi
 
 - Tornar o script executável com o comando:
 ```
-sudo chmod +x /root/script.sh
+sudo chmod +x /home/ec2-user/apache_check.sh
 ```
 
 
 ### Execução automática do script
 
 - Para execução automática do script a cada 5 minutos utilizar o comando: ```sudo crontab -e``` e em seguida configurar o arquivo 
-aberto digitando ```*/5 * * * * /root/script.sh```, salvar e sair. 
+aberto digitando ```*/5 * * * * /home/ec2-user/apache_check.sh```, salvar e sair. 
