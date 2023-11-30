@@ -67,7 +67,7 @@ sudo yum install-y nfs-utils
 - Iniciar o serviço NFS e habilitar sua inicialização no boot do sistema.
 
 ```
-sudo yum install-y nfs-utils
+sudo systemctl start nfs-server
 sudo systemctl enable nfs-server
 ```
 
