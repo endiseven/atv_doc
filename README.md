@@ -132,7 +132,7 @@ Processo de criação do script:
 - Criar um Bash script:
   - Criar um arquivo e nomea-lo com a extensão ```.sh```, abrir o arquivo com um editor de texto e escrever:
 
-```
+```bash
 #!/bin/bash
 
 data=$(date)
