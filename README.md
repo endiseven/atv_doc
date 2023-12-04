@@ -62,7 +62,7 @@ Documentação da primeira atividade de Linux - PB - Compass UOL
 - Intalar o NFS server package
 
 ```
-sudo yum install-y nfs-utils
+sudo yum install -y nfs-utils
 ```
 - Iniciar o serviço NFS e habilitar sua inicialização no boot do sistema.
 
@@ -101,7 +101,7 @@ Instância criada na mesma subnet do servidor, dentro do alcance de IP's estabel
 - Instalar o nfs-utils
 
 ```
-sudo yum install-y nfs-utils
+sudo yum install -y nfs-utils
 ```
 
 - Montar a pasta compartilhada pelo servidor no sistema:
